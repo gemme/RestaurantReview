@@ -10,11 +10,12 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  TextInput
 } from 'react-native';
 import { HeaderStyle } from './HeaderStyle';
 
-const places = [
+const restaurants = [
   {
     name: 'React Cafe',
     address: '123 Anywhere st'
@@ -29,14 +30,33 @@ const places = [
 
 type Props = {};
 export default class App extends Component<Props> {
+
+  state= {
+    search: ''
+  }
+
   render() {
     return (
       <View>
         <Text
         style={HeaderStyle.header}
         >Restaurant Review App</Text>
+        <TextInput
+          style={styles.input}
+          placeholder='Live Search'
+          onChangeText={
+            text => {
+              this.setState({ search: text })
+          }}
+          value={this.state.search}
+        />
         {
-          places.map((place, i) => {
+          restaurants
+          .filter(place => {
+            return !this.state.search ||
+              place.name.toLowerCase().indexOf(this.state.search.toLowerCase()) > -1
+          })
+          .map((place, i) => {
             return (
             <View key={place.name}
               style={{
@@ -75,5 +95,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  input:{
+    marginBottom: 30,
+    padding: 10,
+    paddingHorizontal: 20,
+    fontSize: 16,
+    color: '#444',
+    borderBottomWidth: 1,
+    borderColor: '#ddd',
+    backgroundColor: '#F5F5F5'
   }
 })
