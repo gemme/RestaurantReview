@@ -13,7 +13,7 @@ import {
   StyleSheet,
   TextInput
 } from 'react-native';
-import Header from './Header';
+import Header from 'components/Header';
 
 const restaurants = [
   {
