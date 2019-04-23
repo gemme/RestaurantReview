@@ -11,12 +11,63 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput
+  TextInput,
+  ScrollView
 } from 'react-native';
 import Header from 'components/Header';
 
 const restaurants = [
   {
+    name: 'React Cafe',
+    address: '123 Anywhere st'
+  },{
+    name: 'Fancy Restaurant',
+    address: '799 Main st'
+  },{
+    name: 'Taco Place',
+    address: '650 Maple Rd'
+  },
+  {
+    name: 'React Cafe',
+    address: '123 Anywhere st'
+  },{
+    name: 'Fancy Restaurant',
+    address: '799 Main st'
+  },{
+    name: 'Taco Place',
+    address: '650 Maple Rd'
+  },
+  {
+    name: 'React Cafe',
+    address: '123 Anywhere st'
+  },{
+    name: 'Fancy Restaurant',
+    address: '799 Main st'
+  },{
+    name: 'Taco Place',
+    address: '650 Maple Rd'
+  },{
+    name: 'React Cafe',
+    address: '123 Anywhere st'
+  },{
+    name: 'Fancy Restaurant',
+    address: '799 Main st'
+  },{
+    name: 'Taco Place',
+    address: '650 Maple Rd'
+  },{
+    name: 'React Cafe',
+    address: '123 Anywhere st'
+  },{
+    name: 'Fancy Restaurant',
+    address: '799 Main st'
+  },{
+    name: 'Taco Place',
+    address: '650 Maple Rd'
+  },{
+    name: 'Taco Place',
+    address: '650 Maple Rd'
+  },{
     name: 'React Cafe',
     address: '123 Anywhere st'
   },{
@@ -37,7 +88,7 @@ export default class App extends Component<Props> {
 
   render() {
     return (
-      <View>
+      <View style={{flex: 1}}>
         <Header />
         <TextInput
           style={styles.input}
@@ -48,6 +99,9 @@ export default class App extends Component<Props> {
           }}
           value={this.state.search}
         />
+        <ScrollView contentContainerStyle={{
+          paddingTop: 30
+        }}>
         {
           restaurants
           .filter(place => {
@@ -56,7 +110,7 @@ export default class App extends Component<Props> {
           })
           .map((place, i) => {
             return (
-            <View key={place.name}
+            <View key={i}
               style={{
                 flexDirection: 'row'
               }}>
@@ -74,6 +128,7 @@ export default class App extends Component<Props> {
             )
           })
         }
+        </ScrollView>
     </View>
     );
   }
@@ -95,7 +150,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   input:{
-    marginBottom: 30,
     padding: 10,
     paddingHorizontal: 20,
     fontSize: 16,
