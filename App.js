@@ -68,6 +68,7 @@ const App = (props: Props) => {
             <RestaurantRow place={item} index={index}/>
           }
           keyExtractor={item => item.name}
+          initialNumToRender={14}
         />
     </View>
     );
