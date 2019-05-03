@@ -15,6 +15,7 @@ import PizzaImage from 'images/pizza.png';
 
 type Props = {};
 const RestaurantList = (props: Props) => {
+
     const [search, setSearch] = useState('');
     const [restaurants, setRestaurants] = useState([]);
     useEffect(() => {
@@ -67,6 +68,10 @@ const RestaurantList = (props: Props) => {
     </View>
     );
 };
+
+RestaurantList.navigationOptions = {
+    header: null
+}
 
 export default RestaurantList;
 

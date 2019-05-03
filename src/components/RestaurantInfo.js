@@ -5,11 +5,17 @@ import {
     Text
 } from 'react-native';
 
-export default () => {
+const RestaurantList = () => {
 
     return (
         <View>
             <Text>Info</Text>
         </View>
     );
+};
+
+RestaurantList.navigationOptions = {
+    title: 'Restaurant Info'
 }
+
+export default RestaurantList;
