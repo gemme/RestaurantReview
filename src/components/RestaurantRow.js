@@ -27,7 +27,9 @@ export default ({place, index, navigation}) => {
                 <TouchableOpacity
                     onPress={
                         () => {
-                            navigation.navigate('Info');
+                            navigation.navigate('Info', {
+                                place
+                            });
                             //setShowInfo(!showInfo);
                         }
                     }

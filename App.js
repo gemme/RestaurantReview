@@ -6,11 +6,16 @@
  * @flow
  */
 import React from 'react';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {
+  createStackNavigator,
+  createAppContainer,
+  createBottomTabNavigator } from 'react-navigation';
 import RestaurantList from 'components/RestaurantList';
 import RestaurantInfo from 'components/RestaurantInfo';
+import About from 'components/About';
 
-const AppNavigator = createStackNavigator({
+const ListNavigator = createStackNavigator({
   Home: {screen: RestaurantList},
   Info: {screen: RestaurantInfo}
 }, {
@@ -26,4 +31,24 @@ const AppNavigator = createStackNavigator({
  }
 })
 
-export default createAppContainer(AppNavigator);
+const TabNavigator = createBottomTabNavigator({
+  List: {screen: ListNavigator},
+  About: {screen: About}
+}, {
+  defaultNavigationOptions:({navigation}) => {
+    return {
+      tabBarIcon: ({tintColor}) => {
+        const route = navigation.state.routeName;
+        const name = {
+          'List': 'list',
+          'About': 'info-circle'
+        }[route];
+        return <Icon name={name} color={tintColor} size={23} />
+      }
+    }
+  }, tabBarOptions: {
+      activeBackgroundColor: '#E6F0FA'
+  }
+})
+
+export default createAppContainer(TabNavigator);
