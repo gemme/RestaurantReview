@@ -13,27 +13,18 @@ import {
   StyleSheet,
   TextInput,
   ScrollView,
-  FlatList
+  FlatList,
+  Image
 } from 'react-native';
 import Header from 'components/Header';
 import RestaurantRow from 'components/RestaurantRow';
 import axios from 'axios';
+import PizzaImage from 'images/pizza.png';
 
 type Props = {};
 const App = (props: Props) => {
     const [search, setSearch] = useState('');
     const [restaurants, setRestaurants] = useState([]);
-
-    // componentDidMount / empty bracket sould do the same job
-    /* useEffect(() => {
-      fetch('http://localhost:3000/api/Restaurants/places')
-        .then(response => {
-          return response.json()
-        })
-        .then(result => {
-          setRestaurants(result)
-        })
-    }, []) */
     useEffect(() => {
       axios.get('http://localhost:3000/api/Restaurants/places')
         .then(result => {
@@ -45,6 +36,14 @@ const App = (props: Props) => {
 
     return (
       <View style={{flex: 1}}>
+      <View
+        style={
+          {marginTop: 30,
+          alignItems: 'center'}
+        }
+      >
+        <Image source={PizzaImage} />
+      </View>
         <Header />
         <TextInput
           style={styles.input}
