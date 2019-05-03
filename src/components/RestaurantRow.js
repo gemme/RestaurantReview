@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Stars from './Stars';
 
-export default ({place, index}) => {
+export default ({place, index, navigation}) => {
 
     const [showInfo, setShowInfo] = useState(false);
 
@@ -27,9 +27,8 @@ export default ({place, index}) => {
                 <TouchableOpacity
                     onPress={
                         () => {
-                            console.log('showInfo');
-                            console.log(showInfo);
-                            setShowInfo(!showInfo);
+                            navigation.navigate('Info');
+                            //setShowInfo(!showInfo);
                         }
                     }
                     style={styles.button}
