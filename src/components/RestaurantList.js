@@ -19,7 +19,7 @@ const RestaurantList = (props: Props) => {
     const [search, setSearch] = useState('');
     const [restaurants, setRestaurants] = useState([]);
     useEffect(() => {
-      axios.get('http://localhost:3000/api/Restaurants/places')
+      axios.get('http://localhost:3000/api/Restaurants/')
         .then(result => {
           console.log('axios::get');
           const { data } = result;
