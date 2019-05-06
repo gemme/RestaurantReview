@@ -13,6 +13,7 @@ import {
   createBottomTabNavigator } from 'react-navigation';
 import RestaurantList from 'components/RestaurantList';
 import RestaurantInfo from 'components/RestaurantInfo';
+import AddReview from 'components/AddReview';
 import About from 'components/About';
 
 const ListNavigator = createStackNavigator({
@@ -51,4 +52,15 @@ const TabNavigator = createBottomTabNavigator({
   }
 })
 
-export default createAppContainer(TabNavigator);
+const MainNavigator = createStackNavigator({
+  Tabs: { screen: TabNavigator },
+  AddReview: { screen: AddReview }
+}, {
+  mode: 'modal',
+  headerMode: 'none',
+  defaultNavigationOptions: {
+    gesturesEnabled: false
+  }
+})
+
+export default createAppContainer(MainNavigator);
