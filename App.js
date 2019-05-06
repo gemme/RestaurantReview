@@ -5,7 +5,7 @@
  * @format
  * @flow
  */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   createStackNavigator,
@@ -15,6 +15,7 @@ import RestaurantList from 'components/RestaurantList';
 import RestaurantInfo from 'components/RestaurantInfo';
 import AddReview from 'components/AddReview';
 import About from 'components/About';
+import SplashScreen from 'react-native-splash-screen';
 
 const ListNavigator = createStackNavigator({
   Home: {screen: RestaurantList},
@@ -61,6 +62,12 @@ const MainNavigator = createStackNavigator({
   defaultNavigationOptions: {
     gesturesEnabled: false
   }
-})
+});
+const AppContainer = createAppContainer(MainNavigator);
 
-export default createAppContainer(MainNavigator);
+export default () => {
+  useEffect(() => {
+    SplashScreen.hide();
+  },[]);
+  return (<AppContainer />);
+};
