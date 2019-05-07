@@ -11,9 +11,9 @@ import {
   createStackNavigator,
   createAppContainer,
   createBottomTabNavigator } from 'react-navigation';
-import RestaurantList from 'components/RestaurantList';
-import RestaurantInfo from 'components/RestaurantInfo';
-import AddReview from 'components/AddReview';
+import RestaurantList from 'components/restaurant/RestaurantList';
+import RestaurantInfo from 'components/restaurant/RestaurantInfo';
+import AddReview from 'components/review/AddReview';
 import About from 'components/About';
 import SplashScreen from 'react-native-splash-screen';
 

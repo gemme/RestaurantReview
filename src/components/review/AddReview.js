@@ -15,6 +15,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 
 const AddReview = ({navigation}) => {
+    const restaurantId = navigation.getParam('restaurantId');
     const [name, setName] = useState(null);
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState(null);
@@ -83,7 +84,7 @@ const AddReview = ({navigation}) => {
                 <TouchableOpacity
                     style={styles.submitButton}
                     onPress={() => {
-                        submitReview({name, rating, comment, setSubmitting, navigation});
+                        submitReview({restaurantId, name, rating, comment, setSubmitting, navigation});
                     }}
                     disabled={submitting}>
                     <Text
@@ -96,15 +97,16 @@ const AddReview = ({navigation}) => {
 
 export default AddReview;
 
-const submitReview = ({name, rating, comment, setSubmitting, navigation}) => {
+const submitReview = ({restaurantId, name, rating, comment, setSubmitting, navigation}) => {
     const data = {
+        "restaurantId": restaurantId,
         "name": name,
         "rating": rating,
         "comment": comment
     };
     console.log('POST:data', data);
     setSubmitting(true);
-    axios.post('http://localhost:3000/api/Reviews',data)
+    axios.post(`http://localhost:3000/api/Reviews`,data)
     .then(response => {
         console.log('response', response);
         setSubmitting(false);

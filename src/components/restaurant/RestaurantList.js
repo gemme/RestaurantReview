@@ -9,7 +9,7 @@ import {
   Image
 } from 'react-native';
 import Header from 'components/Header';
-import RestaurantRow from 'components/RestaurantRow';
+import RestaurantRow from 'components/restaurant/RestaurantRow';
 import axios from 'axios';
 import PizzaImage from 'images/pizza.png';
 

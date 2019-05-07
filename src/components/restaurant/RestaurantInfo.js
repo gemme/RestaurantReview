@@ -8,12 +8,13 @@ import {
     TouchableOpacity
 } from 'react-native';
 import Stars from 'components/Stars';
+import ReviewList from 'components/review/ReviewList';
 
 const RestaurantList = ({ navigation }) => {
     const place = navigation.getParam('place');
     return (
-        <ScrollView style= {styles.root}>
-        <View style={styles.infoHeader}>
+        <View style= {styles.root}>
+            <View style={styles.infoHeader}>
                 <View style={styles.info}>
                     <Text style={styles.name}>{place.name}</Text>
                     <Text style={styles.address}>{place.address}</Text>
@@ -21,13 +22,18 @@ const RestaurantList = ({ navigation }) => {
                     <TouchableOpacity
                         style={styles.button}
                         onPress={ ()=> {
-                            navigation.navigate('AddReview')
+                            navigation.navigate('AddReview', {
+                                restaurantId: place.id
+                            })
                         }}>
                         <Text style={styles.buttonText}>Review</Text>
                     </TouchableOpacity>
                 </View>
             </View>
-        </ScrollView>
+            <ScrollView>
+                <ReviewList restaurantId={place.id}/>
+            </ScrollView>
+        </View>
     );
 };
 

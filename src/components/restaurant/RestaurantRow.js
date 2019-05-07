@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     Button
 } from 'react-native';
-import Stars from './Stars';
+import Stars from '../Stars';
 
 export default ({place, index, navigation}) => {
 
