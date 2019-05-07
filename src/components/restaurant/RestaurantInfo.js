@@ -5,16 +5,27 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    Image
 } from 'react-native';
 import Stars from 'components/Stars';
 import ReviewList from 'components/review/ReviewList';
 
+import axios from 'axios';
+
 const RestaurantList = ({ navigation }) => {
     const place = navigation.getParam('place');
+
     return (
         <View style= {styles.root}>
             <View style={styles.infoHeader}>
+                <Image
+                    source={{
+                        uri: `http://localhost:3000/api/Containers/images/download/${place.image}`,
+                    }}
+                    style={styles.image}
+                    resizeMode="contain"
+                    />
                 <View style={styles.info}>
                     <Text style={styles.name}>{place.name}</Text>
                     <Text style={styles.address}>{place.address}</Text>
