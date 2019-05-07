@@ -6,12 +6,15 @@ import {
   TextInput,
   ScrollView,
   FlatList,
-  Image
+  Image,
+  Platform
 } from 'react-native';
 import Header from 'components/Header';
 import RestaurantRow from 'components/restaurant/RestaurantRow';
 import axios from 'axios';
 import PizzaImage from 'images/pizza.png';
+
+const IP_ADDRESS = Platform.OS === "android" ? "10.0.2.2" : "localhost";
 
 type Props = {};
 const RestaurantList = (props: Props) => {
@@ -19,7 +22,7 @@ const RestaurantList = (props: Props) => {
     const [search, setSearch] = useState('');
     const [restaurants, setRestaurants] = useState([]);
     useEffect(() => {
-      axios.get('http://localhost:3000/api/Restaurants/')
+      axios.get(`http://${IP_ADDRESS}:3000/api/Restaurants/`)
         .then(result => {
           console.log('axios::get');
           const { data } = result;

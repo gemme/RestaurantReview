@@ -6,12 +6,15 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    Image
+    Image,
+    Platform
 } from 'react-native';
 import Stars from 'components/Stars';
 import ReviewList from 'components/review/ReviewList';
 
 import axios from 'axios';
+
+const IP_ADDRESS = Platform.OS === "android" ? "10.0.2.2" : "localhost";
 
 const RestaurantList = ({ navigation }) => {
     const place = navigation.getParam('place');
@@ -21,7 +24,7 @@ const RestaurantList = ({ navigation }) => {
             <View style={styles.infoHeader}>
                 <Image
                     source={{
-                        uri: `http://localhost:3000/api/Containers/images/download/${place.image}`,
+                        uri: `http://${IP_ADDRESS}:3000/api/Containers/images/download/${place.image}`,
                     }}
                     style={styles.image}
                     resizeMode="contain"

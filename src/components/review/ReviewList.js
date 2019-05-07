@@ -3,16 +3,19 @@ import {
     View,
     Text,
     StyleSheet,
-    FlatList
+    FlatList,
+    Platform
 } from 'react-native';
 import ReviewRow from 'components/review/ReviewRow';
 
 import axios from 'axios';
 
+const IP_ADDRESS = Platform.OS === "android" ? "10.0.2.2" : "localhost";
+
 const ReviewList = ({restaurantId}) => {
     const [reviews, setReviews] = useState([]);
     useEffect(() => {
-        axios.get(`http://localhost:3000/api/Restaurants/${restaurantId}/reviews`)
+        axios.get(`http://${IP_ADDRESS}:3000/api/Restaurants/${restaurantId}/reviews`)
         .then(response => setReviews(response.data))
         .catch(err => console.error('my error: ', err))
     }, [reviews]);

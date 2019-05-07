@@ -5,7 +5,8 @@ import {
     TouchableOpacity,
     StyleSheet,
     TextInput,
-    ActivityIndicator
+    ActivityIndicator,
+    Platform
 } from 'react-native';
 import {
     KeyboardAwareScrollView
@@ -13,6 +14,8 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import axios from 'axios';
+
+const IP_ADDRESS = Platform.OS === "android" ? "10.0.2.2" : "localhost";
 
 const AddReview = ({navigation}) => {
     const restaurantId = navigation.getParam('restaurantId');
@@ -106,7 +109,7 @@ const submitReview = ({restaurantId, name, rating, comment, setSubmitting, navig
     };
     console.log('POST:data', data);
     setSubmitting(true);
-    axios.post(`http://localhost:3000/api/Reviews`,data)
+    axios.post(`http://${IP_ADDRESS}:3000/api/Reviews`,data)
     .then(response => {
         console.log('response', response);
         setSubmitting(false);
