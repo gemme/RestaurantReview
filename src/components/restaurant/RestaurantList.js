@@ -6,28 +6,27 @@ import {
   TextInput,
   ScrollView,
   FlatList,
-  Image,
-  Platform
+  Image
 } from 'react-native';
 import Header from 'components/Header';
 import RestaurantRow from 'components/restaurant/RestaurantRow';
 import axios from 'axios';
 import PizzaImage from 'images/pizza.png';
 
-const IP_ADDRESS = Platform.OS === "android" ? "10.0.2.2" : "localhost";
+import { connect } from 'react-redux';
+
+import * as restaurantActions from 'redux-store/actions/restaurant';
 
 type Props = {};
-const RestaurantList = (props: Props) => {
-
+const RestaurantList = ({
+  navigation,
+  places,
+  loadRestaurants
+ }: Props) => {
     const [search, setSearch] = useState('');
     const [restaurants, setRestaurants] = useState([]);
     useEffect(() => {
-      axios.get(`http://${IP_ADDRESS}:3000/api/Restaurants/`)
-        .then(result => {
-          console.log('axios::get');
-          const { data } = result;
-          setRestaurants(data)
-        })
+        loadRestaurants();
     }, []);
 
     return (
@@ -52,7 +51,7 @@ const RestaurantList = (props: Props) => {
         />
         <FlatList
           data={
-            restaurants
+            places
               .filter(place => {
                 return !search ||
                   place.name.toLowerCase().indexOf(search.toLowerCase()) > -1
@@ -62,7 +61,7 @@ const RestaurantList = (props: Props) => {
             <RestaurantRow
                 place={item}
                 index={index}
-                navigation={props.navigation}
+                navigation={navigation}
                 />
           }
           keyExtractor={item => item.name}
@@ -76,7 +75,21 @@ RestaurantList.navigationOptions = {
     header: null
 }
 
-export default RestaurantList;
+const mapStateToProps = (state) => {
+  const { restaurant } = state;
+  return {
+      places: restaurant.places
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadRestaurants: () => dispatch(restaurantActions.loadRestaurants())
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(RestaurantList);
 
 const styles = StyleSheet.create({
   input:{

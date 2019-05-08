@@ -17,6 +17,9 @@ import AddReview from 'components/review/AddReview';
 import About from 'components/About';
 import SplashScreen from 'react-native-splash-screen';
 
+import { Provider } from 'react-redux';
+import configureStore from 'redux-store/configureStore';
+
 const ListNavigator = createStackNavigator({
   Home: {screen: RestaurantList},
   Info: {screen: RestaurantInfo}
@@ -64,10 +67,15 @@ const MainNavigator = createStackNavigator({
   }
 });
 const AppContainer = createAppContainer(MainNavigator);
+const store = configureStore();
 
 export default () => {
   useEffect(() => {
     SplashScreen.hide();
   },[]);
-  return (<AppContainer />);
+  return (
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
+  );
 };

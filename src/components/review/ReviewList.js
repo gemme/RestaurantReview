@@ -12,7 +12,8 @@ import axios from 'axios';
 
 const IP_ADDRESS = Platform.OS === "android" ? "10.0.2.2" : "localhost";
 
-const ReviewList = ({restaurantId}) => {
+const ReviewList = (props) => {
+    const {restaurantId} = props
     const [reviews, setReviews] = useState([]);
     useEffect(() => {
         axios.get(`http://${IP_ADDRESS}:3000/api/Restaurants/${restaurantId}/reviews`)
