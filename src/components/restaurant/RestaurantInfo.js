@@ -12,8 +12,6 @@ import {
 import Stars from 'components/Stars';
 import ReviewList from 'components/review/ReviewList';
 
-import axios from 'axios';
-
 const IP_ADDRESS = Platform.OS === "android" ? "10.0.2.2" : "localhost";
 
 const RestaurantList = ({ navigation }) => {

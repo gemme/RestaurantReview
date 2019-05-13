@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
@@ -13,11 +13,10 @@ import {
  } from "react-native-keyboard-aware-scroll-view";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import axios from 'axios';
+import { connect } from 'react-redux';
+import * as reviewActions from 'redux-store/actions/review';
 
-const IP_ADDRESS = Platform.OS === "android" ? "10.0.2.2" : "localhost";
-
-const AddReview = ({navigation}) => {
+const AddReview = ({navigation, submitReview, isSubmitting}) => {
     const restaurantId = navigation.getParam('restaurantId');
     const [name, setName] = useState(null);
     const [rating, setRating] = useState(0);
@@ -76,7 +75,7 @@ const AddReview = ({navigation}) => {
                     multiline={true}
                     numberOfLines={5}
                     />
-                     {submitting &&
+                     {isSubmitting &&
                         <ActivityIndicator
                         size="large"
                         color="#0066CC"
@@ -87,9 +86,9 @@ const AddReview = ({navigation}) => {
                 <TouchableOpacity
                     style={styles.submitButton}
                     onPress={() => {
-                        submitReview({restaurantId, name, rating, comment, setSubmitting, navigation});
+                        submitReview({restaurantId, name, rating, comment, navigation});
                     }}
-                    disabled={submitting}>
+                    disabled={isSubmitting}>
                     <Text
                         style={styles.submitButtonText}>Submit Review</Text>
                 </TouchableOpacity>
@@ -98,9 +97,23 @@ const AddReview = ({navigation}) => {
     );
 };
 
-export default AddReview;
+const mapStateToProps = state => {
+    const {isSubmitting} = state.review;
+    return {
+        isSubmitting
+    };
+};
 
-const submitReview = ({restaurantId, name, rating, comment, setSubmitting, navigation}) => {
+const mapDispatchToProps = dispatch => {
+
+    return {
+        submitReview: (args) => dispatch(reviewActions.submitReview(args))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddReview);
+
+/* const submitReview = ({restaurantId, name, rating, comment, setSubmitting, navigation}) => {
     const data = {
         "restaurantId": restaurantId,
         "name": name,
@@ -119,7 +132,7 @@ const submitReview = ({restaurantId, name, rating, comment, setSubmitting, navig
         console.error("Error: ", err);
         setSubmitting(false);
     })
-}
+} */
 
 const styles = StyleSheet.create({
     root: {

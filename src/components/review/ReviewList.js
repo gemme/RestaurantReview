@@ -8,18 +8,18 @@ import {
 } from 'react-native';
 import ReviewRow from 'components/review/ReviewRow';
 
-import axios from 'axios';
+import * as reviewActions from 'redux-store/actions/review';
+import {connect} from 'react-redux';
 
-const IP_ADDRESS = Platform.OS === "android" ? "10.0.2.2" : "localhost";
-
-const ReviewList = (props) => {
-    const {restaurantId} = props
-    const [reviews, setReviews] = useState([]);
+const ReviewList = ({
+    restaurantId,
+    reviews,
+    loadReviews
+}) => {
+    console.log('restaurantId', restaurantId);
     useEffect(() => {
-        axios.get(`http://${IP_ADDRESS}:3000/api/Restaurants/${restaurantId}/reviews`)
-        .then(response => setReviews(response.data))
-        .catch(err => console.error('my error: ', err))
-    }, [reviews]);
+        loadReviews();
+    }, []);
 
     return (
         <View style={styles.root}>
@@ -33,7 +33,18 @@ const ReviewList = (props) => {
     );
 };
 
-export default ReviewList;
+const mapStateToProps = state => {
+    const {review} = state;
+    return {
+        reviews: review.reviews
+    }
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    loadReviews: () => dispatch(reviewActions.loadReviews(ownProps.restaurantId))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewList);
 
 const styles = StyleSheet.create({
     root: {

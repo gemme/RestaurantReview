@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import Header from 'components/Header';
 import RestaurantRow from 'components/restaurant/RestaurantRow';
-import axios from 'axios';
 import PizzaImage from 'images/pizza.png';
 
 import { connect } from 'react-redux';
@@ -24,7 +23,6 @@ const RestaurantList = ({
   loadRestaurants
  }: Props) => {
     const [search, setSearch] = useState('');
-    const [restaurants, setRestaurants] = useState([]);
     useEffect(() => {
         loadRestaurants();
     }, []);
